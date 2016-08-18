@@ -30,10 +30,6 @@ angular.module('ffffng')
         2: { amount: 1, unit: 'days' },
         3: { amount: 7, unit: 'days' }
     };
-    var DELETE_OFFLINE_NODES_AFTER_DURATION = {
-        amount: 100,
-        unit: 'days'
-    };
 
     var previousImportTimestamp = null;
 
@@ -725,8 +721,7 @@ angular.module('ffffng')
                 .tag('nodes', 'delete-offline')
                 .info(
                     'Deleting offline nodes older than ' +
-                    DELETE_OFFLINE_NODES_AFTER_DURATION.amount + ' ' +
-                    DELETE_OFFLINE_NODES_AFTER_DURATION.unit
+                    config.server.pruneTime + ' days'
                 );
 
             Database.all(
@@ -734,8 +729,8 @@ angular.module('ffffng')
                 [
                     'OFFLINE',
                     moment().subtract(
-                        DELETE_OFFLINE_NODES_AFTER_DURATION.amount,
-                        DELETE_OFFLINE_NODES_AFTER_DURATION.unit
+                        config.server.pruneTime * 86400,
+                        "seconds" // use seconds, so decimal values are possible for days
                     ).unix()
                 ],
                 function (err, rows) {
