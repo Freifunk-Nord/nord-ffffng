@@ -6,7 +6,7 @@
         "databaseFile": "/tmp/ffffng.sqlite",
         "peersPath": "/tmp/peers",
 
-        "pruneTime": 100,
+        "pruneTime": 400,
 
         "logging": {
             "directory": "/tmp/logs",
